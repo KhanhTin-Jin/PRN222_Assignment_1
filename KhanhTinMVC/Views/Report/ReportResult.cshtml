@@ -1,0 +1,334 @@
+﻿@model KhanhTin.BusinessLogic.DTOs.ReportResultDto
+@{
+    ViewData["Title"] = "Report Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Font & Icons *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(22, 29, 62, 0.45);
+        --glass-border: rgba(137, 124, 255, 0.2);
+        --text-primary: #e0e0e0;
+        --text-secondary: #9a9ed9;
+        --glow-cyan: #00b7eb;
+        --glow-magenta: #ff00ff;
+        --glow-green: #00ff99;
+        --glow-red: #ff4757;
+        --glow-yellow: #feca57;
+        --glow-purple: #9c27b0;
+    }
+
+    body {
+        background: var(--bg-gradient);
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-primary);
+    }
+
+    .sci-fi-container {
+        padding: 2rem;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .page-title {
+        font-weight: 600;
+        font-size: 2.5rem;
+        color: var(--glow-cyan);
+        text-shadow: 0 0 7px var(--glow-cyan);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn-cyber {
+        color: var(--text-secondary);
+        border: 1px solid var(--glass-border);
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        background: transparent;
+    }
+
+        .btn-cyber.btn-back:hover {
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-cyber.btn-print {
+            background: linear-gradient(45deg, var(--glow-cyan), var(--glow-magenta));
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 20px rgba(150, 50, 255, 0.5);
+        }
+
+            .btn-cyber.btn-print:hover {
+                color: white;
+                box-shadow: 0 6px 25px rgba(0, 229, 255, 0.7);
+                transform: translateY(-2px);
+            }
+
+    .content-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        height: 100%;
+    }
+
+    .card-header-cyber {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+    }
+
+    .summary-item strong {
+        color: var(--text-secondary);
+        margin-right: 0.5rem;
+    }
+
+    .stat-card {
+        background: var(--glass-bg);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        text-align: center;
+        height: 100%;
+    }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .stat-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+    .stat-card-total {
+        color: var(--glow-cyan);
+    }
+
+    .stat-card-active {
+        color: var(--glow-green);
+    }
+
+    .stat-card-category {
+        color: var(--glow-purple);
+    }
+
+    .stat-card-tag {
+        color: var(--glow-yellow);
+    }
+
+    .sci-fi-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .sci-fi-table thead th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sci-fi-table tbody tr:hover {
+            background-color: rgba(137, 124, 255, 0.1);
+        }
+
+        .sci-fi-table tbody td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--glass-border);
+            font-size: 0.9rem;
+        }
+
+        .sci-fi-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+    .status-badge {
+        padding: 0.3rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #000;
+    }
+
+    .status-active {
+        background-color: var(--glow-green);
+        box-shadow: 0 0 8px var(--glow-green);
+    }
+
+    .status-inactive {
+        background-color: var(--glow-gray);
+        color: #fff;
+    }
+
+    @@media print {
+        body {
+            background: #fff !important;
+            color: #000 !important;
+        }
+
+        .page-header, .btn-cyber {
+            display: none !important;
+        }
+
+        .sci-fi-container {
+            padding: 0;
+        }
+
+        .content-card, .stat-card, .table-container {
+            background: none !important;
+            border: 1px solid #ccc !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            color: #000 !important;
+        }
+
+            .page-title, .stat-card h3, .stat-card p, .card-header-cyber, .sci-fi-table, .sci-fi-table * {
+                color: #000 !important;
+                text-shadow: none !important;
+            }
+
+        .status-badge {
+            border: 1px solid #ddd;
+        }
+    }
+</style>
+
+<div class="sci-fi-container">
+    <div class="page-header">
+        <h1 class="page-title"><i class="bi bi-file-earmark-bar-graph-fill"></i> Report Results</h1>
+        <div class="header-actions">
+            <a asp-action="Index" class="btn-cyber btn-back">
+                <i class="bi bi-arrow-left"></i> Generate New Report
+            </a>
+            <button onclick="window.print()" class="btn-cyber btn-print">
+                <i class="bi bi-printer-fill"></i> Print Report
+            </button>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h5 class="card-header-cyber">Report Summary</h5>
+        <div class="summary-grid">
+            <div class="summary-item"><strong>Period:</strong> @Model.StartDate.ToString("dd/MM/yyyy") - @Model.EndDate.ToString("dd/MM/yyyy")</div>
+            <div class="summary-item"><strong>Generated By:</strong> @Model.GeneratedBy</div>
+            <div class="summary-item"><strong>Generated At:</strong> @Model.GeneratedAt.ToString("dd/MM/yyyy HH:mm")</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-6 mb-4"><div class="stat-card"><h3 class="stat-card-total">@Model.TotalNewsArticles</h3><p>Total Articles</p></div></div>
+        <div class="col-lg-3 col-6 mb-4"><div class="stat-card"><h3 class="stat-card-active">@Model.ActiveNewsArticles</h3><p>Active Articles</p></div></div>
+        <div class="col-lg-3 col-6 mb-4"><div class="stat-card"><h3 class="stat-card-category">@Model.TotalCategories</h3><p>Categories</p></div></div>
+        <div class="col-lg-3 col-6 mb-4"><div class="stat-card"><h3 class="stat-card-tag">@Model.TotalTags</h3><p>Tags</p></div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="content-card">
+                <h5 class="card-header-cyber">Category Statistics</h5>
+                <table class="sci-fi-table">
+                    <thead><tr><th>Category</th><th>Articles</th><th>Percentage</th></tr></thead>
+                    <tbody>
+                        @foreach (var category in Model.CategoryStatistics.Take(10))
+                        {
+                            <tr><td>@category.CategoryName</td><td>@category.NewsCount</td><td>@category.Percentage.ToString("0.0")%</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="content-card">
+                <h5 class="card-header-cyber">Creator Statistics</h5>
+                <table class="sci-fi-table">
+                    <thead><tr><th>Creator</th><th>Articles</th><th>Percentage</th></tr></thead>
+                    <tbody>
+                        @foreach (var creator in Model.CreatorStatistics.Take(10))
+                        {
+                            <tr><td>@creator.AccountName</td><td>@creator.NewsCount</td><td>@creator.Percentage.ToString("0.0")%</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h5 class="card-header-cyber">Included News Articles</h5>
+        <div class="table-responsive">
+            <table class="sci-fi-table">
+                <thead>
+                    <tr><th>Title</th><th>Category</th><th>Author</th><th>Date</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var news in Model.NewsArticles)
+                    {
+                        <tr>
+                            <td>@news.NewsTitle</td>
+                            <td>@news.CategoryName</td>
+                            <td>@news.CreatedByName</td>
+                            <td>@news.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <span class="status-badge @(news.NewsStatus == 1 ? "status-active" : "status-inactive")">
+                                    @(news.NewsStatus == 1 ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,220 @@
+﻿@model KhanhTin.BusinessLogic.DTOs.AccountCreateDto
+@{
+    ViewData["Title"] = "Create Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+    body {
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        font-family: 'Poppins', sans-serif;
+        color: #e0e0e0;
+        overflow-x: hidden;
+    }
+
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 1.5rem;
+    }
+
+    .form-wrapper {
+        background: rgba(22, 29, 62, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        max-width: 480px;
+        width: 100%;
+        padding: 2.5rem;
+        border: 1px solid rgba(137, 124, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .form-wrapper h2 {
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: #00e5ff;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px #00e5ff, 0 0 10px #00e5ff;
+        }
+
+    .input-group-custom {
+        position: relative;
+        margin-bottom: 1.75rem;
+    }
+
+        .input-group-custom .form-control,
+        .input-group-custom .form-select {
+            height: 50px;
+            border-radius: 8px;
+            border: 1px solid rgba(137, 124, 255, 0.3);
+            background: rgba(22, 29, 62, 0.5);
+            color: #e0e0e0;
+            padding-left: 3rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+            .input-group-custom .form-control:focus,
+            .input-group-custom .form-select:focus {
+                border-color: #00e5ff;
+                box-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
+                background: rgba(22, 29, 62, 0.7);
+                outline: none;
+            }
+
+            .input-group-custom .form-control::placeholder {
+                color: #8a8a8a;
+            }
+
+        .input-group-custom > i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00e5ff;
+            font-size: 1rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(0, 229, 255, 0.7);
+        }
+
+        .input-group-custom:focus-within > i {
+            color: #ff00ff;
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.7);
+        }
+
+    .password-toggle {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #00e5ff;
+        font-size: 1rem;
+        z-index: 10;
+    }
+
+    .btn {
+        font-weight: 500;
+        padding: 0.75rem;
+        border-radius: 8px;
+        width: 100%;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        border: none;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #00e5ff, #c000ff);
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(150, 50, 255, 0.5);
+    }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 25px rgba(0, 229, 255, 0.7);
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary {
+        background: transparent;
+        color: #9a9ed9;
+        border: 1px solid rgba(137, 124, 255, 0.3);
+    }
+
+        .btn-secondary:hover {
+            background: rgba(137, 124, 255, 0.1);
+            border-color: rgba(137, 124, 255, 0.5);
+            color: #e0e0e0;
+        }
+
+    .text-danger {
+        font-size: 0.85rem;
+        color: #ff6b6b;
+        margin-top: 0.5rem;
+        text-align: left;
+        display: block;
+    }
+
+    @@media (max-width: 576px) {
+        .form-wrapper {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+
+<div class="form-container">
+    <div class="form-wrapper">
+        <h2>Create Account</h2>
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="input-group-custom">
+                <i class="fas fa-user-astronaut"></i>
+                <input asp-for="AccountName" class="form-control" placeholder="Full Name" />
+                <span asp-validation-for="AccountName" class="text-danger"></span>
+            </div>
+
+            <div class="input-group-custom">
+                <i class="fas fa-at"></i>
+                <input asp-for="AccountEmail" class="form-control" placeholder="Email Address" type="email" />
+                <span asp-validation-for="AccountEmail" class="text-danger"></span>
+            </div>
+
+            <div class="input-group-custom">
+                <i class="fas fa-user-shield"></i>
+                <select asp-for="AccountRole" class="form-select">
+                    <option value="" disabled selected>Select a Role</option>
+                    <option value="0">Admin</option>
+                    <option value="1">Staff</option>
+                    <option value="2">Lecturer</option>
+                </select>
+                <span asp-validation-for="AccountRole" class="text-danger"></span>
+            </div>
+
+            <div class="input-group-custom">
+                <i class="fas fa-key"></i>
+                <input asp-for="Password" id="passwordInput" class="form-control" placeholder="Password" type="password" />
+                <span id="togglePassword" class="password-toggle"><i class="fas fa-eye"></i></span>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+                <a asp-action="ManageAccounts" class="btn btn-secondary order-2 order-sm-1">Cancel</a>
+                <button type="submit" class="btn btn-primary order-1 order-sm-2">Create Account</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePassword = document.querySelector('#togglePassword');
+            const passwordInput = document.querySelector('#passwordInput');
+
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function () {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    const icon = this.querySelector('i');
+                    icon.classList.toggle('fa-eye');
+                    icon.classList.toggle('fa-eye-slash');
+                });
+            }
+        });
+    </script>
+}

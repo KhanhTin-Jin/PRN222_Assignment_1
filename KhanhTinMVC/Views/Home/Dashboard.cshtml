@@ -1,0 +1,425 @@
+﻿@model KhanhTin.BusinessLogic.DTOs.DashboardDto
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Font & Icons *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(22, 29, 62, 0.45);
+        --glass-border: rgba(137, 124, 255, 0.2);
+        --text-primary: #e0e0e0;
+        --text-secondary: #9a9ed9;
+        --glow-cyan: #00e5ff;
+        --glow-magenta: #ff00ff;
+        --glow-green: #00ff99;
+        --glow-red: #ff4757;
+        --glow-purple: #9c27b0;
+    }
+
+    body {
+        background: var(--bg-gradient);
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-primary);
+    }
+
+    .sci-fi-container {
+        padding: 2rem;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .page-title {
+        font-weight: 600;
+        font-size: 2.5rem;
+        color: var(--glow-cyan);
+        text-shadow: 0 0 7px var(--glow-cyan);
+    }
+
+    .btn-report {
+        background: linear-gradient(45deg, var(--glow-cyan), var(--glow-magenta));
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(150, 50, 255, 0.5);
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+    }
+
+        .btn-report:hover {
+            color: white;
+            box-shadow: 0 6px 25px rgba(0, 229, 255, 0.7);
+            transform: translateY(-2px);
+        }
+
+    .stat-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .stat-card .stat-icon {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 6rem;
+            opacity: 0.1;
+            transition: all 0.5s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            opacity: 0.2;
+            transform: translateY(-50%) rotate(-10deg) scale(1.1);
+        }
+
+    .stat-card-title {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-card-value {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .stat-card.border-cyan {
+        border-left: 5px solid var(--glow-cyan);
+    }
+
+    .stat-card.border-green {
+        border-left: 5px solid var(--glow-green);
+    }
+
+    .stat-card.border-purple {
+        border-left: 5px solid var(--glow-purple);
+    }
+
+    .stat-card.border-magenta {
+        border-left: 5px solid var(--glow-magenta);
+    }
+
+    .content-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        height: 100%;
+    }
+
+    .card-header-cyber {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    /* Reusing table style from previous designs */
+    .sci-fi-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .sci-fi-table thead th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sci-fi-table tbody tr:hover {
+            background-color: rgba(137, 124, 255, 0.1);
+        }
+
+        .sci-fi-table tbody td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--glass-border);
+            font-size: 0.9rem;
+        }
+
+        .sci-fi-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+    .status-badge {
+        padding: 0.3rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #000;
+    }
+
+    .status-active {
+        background-color: var(--glow-green);
+        box-shadow: 0 0 8px var(--glow-green);
+    }
+
+    .status-inactive {
+        background-color: var(--glow-gray);
+        color: #fff;
+    }
+
+    /* Growth Section */
+    .growth-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+        .growth-stats h6 {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .growth-stats h3 {
+            font-weight: 600;
+            margin: 0;
+        }
+
+    .sci-fi-progress {
+        height: 10px;
+        background-color: rgba(0,0,0,0.3);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .sci-fi-progress-bar {
+        height: 100%;
+        border-radius: 10px;
+    }
+
+    .progress-bar-green {
+        background: linear-gradient(90deg, #00b09b, var(--glow-green));
+        box-shadow: 0 0 10px var(--glow-green);
+    }
+
+    .progress-bar-red {
+        background: linear-gradient(90deg, #ff4757, #ff6b81);
+        box-shadow: 0 0 10px var(--glow-red);
+    }
+
+    /* Top Lists */
+    .sci-fi-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sci-fi-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0.25rem;
+    }
+
+        .sci-fi-list-item:not(:last-child) {
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+    .pill-badge {
+        font-size: 0.8rem;
+        font-weight: 500;
+        padding: 0.3rem 0.7rem;
+        border-radius: 50px;
+    }
+
+        .pill-badge.bg-primary {
+            background: var(--glow-cyan);
+            color: #000;
+            box-shadow: 0 0 8px var(--glow-cyan);
+        }
+
+        .pill-badge.bg-info {
+            background: var(--glow-magenta);
+            color: #fff;
+            box-shadow: 0 0 8px var(--glow-magenta);
+        }
+</style>
+
+<div class="sci-fi-container">
+    <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <a asp-controller="Report" asp-action="Index" class="btn-report">
+            <i class="bi bi-file-earmark-bar-graph-fill"></i> Generate Reports
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card border-cyan">
+                <i class="bi bi-newspaper stat-icon"></i>
+                <h5 class="stat-card-title">Total News</h5>
+                <h2 class="stat-card-value">@Model.TotalNews</h2>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card border-green">
+                <i class="bi bi-check-circle-fill stat-icon"></i>
+                <h5 class="stat-card-title">Active News</h5>
+                <h2 class="stat-card-value">@Model.ActiveNews</h2>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card border-purple">
+                <i class="bi bi-folder-fill stat-icon"></i>
+                <h5 class="stat-card-title">Categories</h5>
+                <h2 class="stat-card-value">@Model.TotalCategories</h2>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card border-magenta">
+                <i class="bi bi-people-fill stat-icon"></i>
+                <h5 class="stat-card-title">Users</h5>
+                <h2 class="stat-card-value">@Model.TotalUsers</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="content-card">
+                <h5 class="card-header-cyber">Recent News Articles</h5>
+                <div class="table-responsive">
+                    <table class="sci-fi-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Created By</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var news in Model.RecentNews)
+                            {
+                                <tr>
+                                    <td>@news.NewsTitle</td>
+                                    <td>@news.CategoryName</td>
+                                    <td>@news.CreatedByName</td>
+                                    <td>@news.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <span class="status-badge @(news.NewsStatus == 1 ? "status-active" : "status-inactive")">
+                                            @(news.NewsStatus == 1 ? "Active" : "Inactive")
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="content-card">
+                <h5 class="card-header-cyber">News Growth</h5>
+                <div class="growth-stats">
+                    <div>
+                        <h6>This Month</h6>
+                        <h3>@Model.NewsThisMonth</h3>
+                    </div>
+                    <div>
+                        <h6>Last Month</h6>
+                        <h3>@Model.NewsLastMonth</h3>
+                    </div>
+                    <div>
+                        <h6>Growth</h6>
+                        <h3 class="@(Model.NewsGrowthPercentage >= 0 ? "text-success" : "text-danger")" style="color: @(Model.NewsGrowthPercentage >= 0 ? "var(--glow-green)" : "var(--glow-red)") !important;">
+                            @(Model.NewsGrowthPercentage >= 0 ? "+" : "")@Model.NewsGrowthPercentage.ToString("0.0")%
+                        </h3>
+                    </div>
+                </div>
+                <div class="sci-fi-progress">
+                    @{
+                        var progressWidth = Math.Abs(Model.NewsGrowthPercentage) > 100 ? 100 : Math.Abs(Model.NewsGrowthPercentage);
+                    }
+                    <div class="sci-fi-progress-bar @(Model.NewsGrowthPercentage >= 0 ? "progress-bar-green" : "progress-bar-red")"
+                         style="width: @progressWidth%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="content-card">
+                <h5 class="card-header-cyber">Top Categories</h5>
+                <ul class="sci-fi-list">
+                    @foreach (var category in Model.TopCategories.Take(5))
+                    {
+                        <li class="sci-fi-list-item">
+                            <div>
+                                <h6 class="mb-0">@category.CategoryName</h6>
+                                <small class="text-secondary">@category.NewsCount articles</small>
+                            </div>
+                            <span class="pill-badge bg-primary">@category.Percentage.ToString("0.0")%</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="content-card">
+                <h5 class="card-header-cyber">Top Contributors</h5>
+                <ul class="sci-fi-list">
+                    @foreach (var creator in Model.TopCreators.Take(5))
+                    {
+                        <li class="sci-fi-list-item">
+                            <div>
+                                <h6 class="mb-0">@creator.AccountName</h6>
+                                <small class="text-secondary">@creator.NewsCount articles</small>
+                            </div>
+                            <span class="pill-badge bg-info">@creator.Percentage.ToString("0.0")%</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

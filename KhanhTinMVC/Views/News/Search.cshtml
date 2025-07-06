@@ -1,0 +1,456 @@
+﻿@model KhanhTin.BusinessLogic.DTOs.NewsSearchDto
+@{
+    ViewData["Title"] = "Search Results";
+    bool isLecturer = ViewBag.IsLecturer ?? false;
+
+    // Logic for back button destination
+    var backController = isLecturer ? "Home" : "News";
+    var backAction = isLecturer ? "LecturerNews" : "Index";
+}
+
+@* Font & Icons *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(22, 29, 62, 0.5);
+        --glass-border: rgba(137, 124, 255, 0.2);
+        --input-bg: rgba(22, 29, 62, 0.6);
+        --text-primary: #e0e0e0;
+        --text-secondary: #9a9ed9;
+        --glow-cyan: #00b7eb;
+        --glow-magenta: #ff00ff;
+        --glow-green: #00ff99;
+        --glow-red: #ff4757;
+        --glow-yellow: #feca57;
+        --glow-gray: #777;
+    }
+
+    body {
+        background: var(--bg-gradient);
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-primary);
+    }
+
+    .sci-fi-container {
+        padding: 2rem;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .page-title {
+        font-weight: 600;
+        font-size: 2.5rem;
+        color: var(--glow-cyan);
+        text-shadow: 0 0 7px var(--glow-cyan);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .btn-back {
+        background: transparent;
+        color: var(--text-secondary);
+        border: 1px solid var(--glass-border);
+        font-weight: 500;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+    }
+
+        .btn-back:hover {
+            color: var(--glow-cyan);
+            border-color: var(--glow-cyan);
+            box-shadow: 0 0 8px var(--glow-cyan);
+        }
+
+    .filter-card, .results-card, .alert-cyber {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem 2rem;
+    }
+
+    .filter-card {
+        margin-bottom: 2rem;
+    }
+
+        .filter-card .form-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+    .form-control-cyber, .form-select-cyber {
+        background: var(--input-bg);
+        border: 1px solid var(--glass-border);
+        color: var(--text-primary);
+        border-radius: 8px;
+        height: 48px;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .form-control-cyber:focus, .form-select-cyber:focus {
+            background: rgba(22, 29, 62, 0.8);
+            border-color: var(--glow-cyan);
+            box-shadow: 0 0 10px var(--glow-cyan);
+            outline: none;
+        }
+
+    .btn-search {
+        background: var(--glow-cyan);
+        color: #000;
+        border: none;
+        font-weight: 600;
+        border-radius: 8px;
+        height: 48px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+        .btn-search:hover {
+            box-shadow: 0 0 15px var(--glow-cyan);
+        }
+
+    .alert-cyber {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        font-size: 1rem;
+    }
+
+        .alert-cyber.alert-info-cyber {
+            border-left: 4px solid var(--glow-cyan);
+        }
+
+        .alert-cyber.alert-warning-cyber {
+            border-left: 4px solid var(--glow-yellow);
+        }
+
+        .alert-cyber i {
+            font-size: 1.5rem;
+        }
+
+    .news-card { /* Reusing card styles */
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+    }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: rgba(137, 124, 255, 0.4);
+        }
+
+    .card-header-cyber {
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid var(--glass-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-body-cyber {
+        padding: 1.25rem;
+        flex-grow: 1;
+    }
+
+    .card-footer-cyber {
+        padding: 1rem 1.25rem;
+        border-top: 1px solid var(--glass-border);
+        background: rgba(0,0,0,0.1);
+    }
+
+    .news-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .news-headline {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .news-meta {
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+
+    .status-badge {
+        padding: 0.3rem 0.7rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #000;
+    }
+
+    .status-active {
+        background-color: var(--glow-green);
+        box-shadow: 0 0 7px var(--glow-green);
+    }
+
+    .status-inactive {
+        background-color: var(--glow-gray);
+        color: #fff;
+    }
+
+    .tag-badge {
+        background: var(--glow-gray);
+        color: #fff;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 50px;
+    }
+
+    .action-btn-group {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-view:hover {
+        color: var(--glow-cyan);
+        border-color: var(--glow-cyan);
+    }
+
+    .btn-edit:hover {
+        color: var(--glow-magenta);
+        border-color: var(--glow-magenta);
+    }
+</style>
+
+<div class="sci-fi-container">
+    <div class="page-header">
+        <h1 class="page-title"><i class="bi bi-search"></i> Search News</h1>
+        <a asp-controller="@backController" asp-action="@backAction" class="btn-back">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <div class="filter-card">
+        <form asp-action="Search" method="get" class="row g-3">
+            <div class="col-lg-5 col-md-12">
+                <label for="searchTerm" class="form-label">Search Term</label>
+                <input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control-cyber"
+                       placeholder="Search by title, headline..." id="searchTerm">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label for="categoryId" class="form-label">Category</label>
+                <select name="categoryId" class="form-select-cyber" id="categoryId" asp-items="ViewBag.Categories">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+            @if (!isLecturer)
+            {
+                <div class="col-lg-2 col-md-6">
+                    <label for="status" class="form-label">Status</label>
+                    <select name="status" class="form-select-cyber" id="status" asp-items="ViewBag.StatusOptions">
+                        <option value="">All Statuses</option>
+                    </select>
+                </div>
+            }
+            <div class="col-lg-2 col-md-12 d-flex align-items-end">
+                <button type="submit" class="btn-search w-100">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.SearchTerm) || Model.CategoryID.HasValue || Model.NewsStatus.HasValue)
+    {
+        <div class="alert-cyber alert-info-cyber">
+            <i class="bi bi-info-circle-fill"></i>
+            <span>Found <strong>@Model.TotalResults</strong> results for your search criteria.</span>
+        </div>
+    }
+
+    @if (!Model.Results.Any())
+    {
+        <div class="alert-cyber alert-warning-cyber">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span>No news articles match your search criteria. Please try again.</span>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model.Results)
+            {
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="news-card">
+                        <div class="card-header-cyber">
+                            <small class="text-secondary">@item.CategoryName</small>
+                            @if (!isLecturer)
+                            {
+                                <span class="status-badge @(item.NewsStatus == 1 ? "status-active" : "status-inactive")">
+                                    @(item.NewsStatus == 1 ? "Active" : "Inactive")
+                                </span>
+                            }
+                        </div>
+                        <div class="card-body-cyber d-flex flex-column">
+                            <h5 class="news-title">@item.NewsTitle</h5>
+                            <p class="news-headline flex-grow-1">@item.Headline</p>
+                            <small class="news-meta">
+                                <i class="bi bi-calendar-event"></i> @item.CreatedDate.ToString("dd/MM/yyyy") by @item.CreatedByName
+                            </small>
+                        </div>
+                        <div class="card-footer-cyber">
+                            <div class="tags-container">
+                                @foreach (var tag in item.TagNames.Take(2))
+                                {
+                                    <span class="tag-badge">#@tag</span>
+                                }
+                                @if (item.TagNames.Count > 2)
+                                {
+                                    <span class="tag-badge">+@(item.TagNames.Count - 2)</span>
+                                }
+                            </div>
+                            <div class="action-btn-group">
+                                <a asp-action="Details" asp-route-id="@item.NewsArticleID" class="action-btn btn-view" title="View"><i class="bi bi-eye-fill"></i></a>
+                                @if (!isLecturer)
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.NewsArticleID" class="action-btn btn-edit" title="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                    <button type="button" class="action-btn btn-delete js-delete-button"
+                                            data-id="@item.NewsArticleID"
+                                            data-name="@item.NewsTitle"
+                                            data-url="@Url.Action("Delete", "News")"
+                                            title="Delete">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (!isLecturer)
+{
+    <partial name="_DeleteConfirmation" />
+}
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+            <div class="modal-header" style="border-bottom: 1px solid var(--glass-border);">
+                <h5 class="modal-title" id="deleteModalLabel" style="color: var(--glow-cyan); text-shadow: 0 0 7px var(--glow-cyan); font-weight: 600;">
+                    <i class="bi bi-trash-fill me-2"></i> Confirm Deletion
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(0.7);"></button>
+            </div>
+            <div class="modal-body" style="color: var(--text-primary);">
+                <p>Are you sure you want to delete the article "<span id="itemNameToDelete" style="color: var(--glow-magenta);"></span>"?</p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid var(--glass-border);">
+                <button type="button" class="btn" data-bs-dismiss="modal" style="background: transparent; border: 1px solid var(--glass-border); color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.3s ease;">
+                    Cancel
+                </button>
+                <form id="deleteForm" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteItemId" name="id" />
+                    <button type="submit" class="btn" style="background: var(--glow-red); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 8px; box-shadow: 0 0 8px var(--glow-red); transition: all 0.3s ease;">
+                        <i class="bi bi-trash-fill me-2"></i> Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Script to preserve filter values on page load
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryId = urlParams.get('categoryId');
+            const status = urlParams.get('status');
+
+            if(categoryId) {
+                const categorySelect = document.querySelector(`#categoryId option[value='${categoryId}']`);
+                if(categorySelect) categorySelect.selected = true;
+            }
+            if(status) {
+                 const statusSelect = document.querySelector(`#status option[value='${status}']`);
+                 if(statusSelect) statusSelect.selected = true;
+            }
+
+            // Script for delete confirmation modal
+            const deleteModalElement = document.getElementById('deleteConfirmationModal');
+            if (deleteModalElement) {
+                const deleteModal = new bootstrap.Modal(deleteModalElement);
+                const itemNameToDelete = document.getElementById('itemNameToDelete');
+                const deleteForm = document.getElementById('deleteForm');
+                const deleteItemId = document.getElementById('deleteItemId');
+
+                document.querySelectorAll('.js-delete-button').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const id = this.getAttribute('data-id');
+                        const name = this.getAttribute('data-name');
+                        const url = this.getAttribute('data-url');
+
+                        if(itemNameToDelete) itemNameToDelete.textContent = name;
+                        if(deleteItemId) deleteItemId.value = id;
+                        if(deleteForm) deleteForm.setAttribute('action', url);
+
+                        deleteModal.show();
+                    });
+                });
+            }
+        });
+    </script>
+}

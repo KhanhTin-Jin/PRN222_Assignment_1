@@ -1,0 +1,244 @@
+﻿@model IEnumerable<KhanhTin.BusinessLogic.DTOs.NewsArticleDto>
+@{
+    ViewData["Title"] = "Latest News";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Font & Icons *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(22, 29, 62, 0.45);
+        --glass-border: rgba(137, 124, 255, 0.2);
+        --input-bg: rgba(22, 29, 62, 0.6);
+        --text-primary: #e0e0e0;
+        --text-secondary: #9a9ed9;
+        --glow-cyan: #00b7eb;
+        --glow-magenta: #ff00ff;
+        --glow-gray: #576574;
+    }
+
+    body {
+        background: var(--bg-gradient);
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-primary);
+    }
+
+    .sci-fi-container {
+        padding: 2rem;
+        max-width: 1200px; /* Adjusted max-width for single column */
+        margin: 0 auto;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .page-title {
+        font-weight: 700;
+        font-size: 3.2rem;
+        color: var(--glow-cyan);
+        text-shadow: 0 0 8px var(--glow-cyan);
+    }
+
+    .search-form {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .search-input {
+        background: var(--input-bg);
+        border: 1px solid var(--glass-border);
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: 0.75rem 1.25rem;
+        min-width: 300px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-input:focus {
+            background: rgba(22, 29, 62, 0.8);
+            border-color: var(--glow-cyan);
+            box-shadow: 0 0 10px var(--glow-cyan);
+            outline: none;
+        }
+
+    .btn-search {
+        background: transparent;
+        border: 1px solid var(--glow-cyan);
+        color: var(--glow-cyan);
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-search:hover {
+            background: var(--glow-cyan);
+            color: #000;
+            box-shadow: 0 0 12px var(--glow-cyan);
+        }
+
+    .news-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            border-color: rgba(137, 124, 255, 0.4);
+        }
+
+        /* UPDATED: Added flex layout for horizontal card */
+        .news-card .card-content-wrapper {
+            display: flex;
+        }
+
+    .card-body-cyber {
+        padding: 2rem;
+        flex-grow: 1;
+    }
+
+    .news-category {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--glow-magenta);
+        margin-bottom: 0.75rem;
+    }
+
+    .news-title {
+        font-size: 1.8rem; /* Larger title */
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        line-height: 1.4;
+    }
+
+    .news-headline {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    .news-meta {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        opacity: 0.8;
+    }
+
+    .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag-badge {
+        background: var(--glow-gray);
+        color: #fff;
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.3rem 0.7rem;
+        border-radius: 50px;
+    }
+
+    .card-footer-cyber {
+        padding: 1.5rem 2rem;
+        border-top: 1px solid var(--glass-border);
+        background-color: rgba(0,0,0,0.2);
+        display: flex;
+        justify-content: flex-end; /* Aligned button to the right */
+        align-items: center;
+    }
+
+    .btn-read-more {
+        border: 1px solid var(--glow-cyan);
+        color: var(--glow-cyan);
+        padding: 0.6rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+        .btn-read-more:hover {
+            background: var(--glow-cyan);
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--glow-cyan);
+        }
+</style>
+
+<div class="sci-fi-container">
+    <div class="page-header">
+        <h1 class="page-title">Latest News</h1>
+        <form asp-controller="News" asp-action="Search" method="get" class="search-form">
+            <input type="text" name="searchTerm" class="search-input" placeholder="Search news...">
+            <button type="submit" class="btn-search">Search</button>
+        </form>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert text-center" style="background: var(--glass-bg); border-color: var(--glass-border);">
+            <i class="bi bi-info-circle-fill fs-1"></i>
+            <h5 class="mt-3">No News Available</h5>
+            <p>No news articles are available at this time.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var news in Model)
+            {
+                <div class="col-12 mb-4">
+                    <div class="news-card">
+                        <div class="card-body-cyber">
+                            <h6 class="news-category">@news.CategoryName</h6>
+                            <h2 class="news-title">@news.NewsTitle</h2>
+                            <p class="news-headline">@news.Headline</p>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="news-meta">
+                                    <i class="bi bi-calendar-event"></i> @news.CreatedDate.ToString("dd/MM/yyyy")
+                                </small>
+                                <div class="tags-container">
+                                    @foreach (var tag in news.TagNames)
+                                    {
+                                        <span class="tag-badge">@tag</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer-cyber">
+                            <a asp-controller="News" asp-action="Details" asp-route-id="@news.NewsArticleID" class="btn-read-more">Read More <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

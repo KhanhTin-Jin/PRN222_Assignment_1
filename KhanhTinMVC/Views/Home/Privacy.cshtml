@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Font & Icons *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(22, 29, 62, 0.45);
+        --glass-border: rgba(137, 124, 255, 0.2);
+        --text-primary: #e0e0e0;
+        --text-secondary: #b0b8d8;
+        --glow-cyan: #00b7eb;
+        --glow-magenta: #ff00ff;
+    }
+
+    body {
+        background: var(--bg-gradient);
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-primary);
+    }
+
+    .policy-container {
+        padding: 3rem 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .page-title {
+        font-weight: 600;
+        font-size: 2.8rem;
+        color: var(--glow-cyan);
+        text-shadow: 0 0 8px var(--glow-cyan);
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        padding: 2.5rem 3rem;
+    }
+
+    .card-title-cyber {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .last-updated {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 2.5rem;
+    }
+
+    .policy-section h6 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--glow-magenta);
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 5px var(--glow-magenta);
+    }
+
+    .policy-section p, .policy-section li {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+
+    .policy-section ul {
+        padding-left: 25px;
+        list-style: none;
+    }
+
+    .policy-section li::before {
+        content: "\f105"; /* Font Awesome chevron-right icon */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: var(--glow-cyan);
+        margin-left: -25px;
+        margin-right: 10px;
+    }
+
+    .policy-section a {
+        color: var(--glow-cyan);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .policy-section a:hover {
+            text-shadow: 0 0 8px var(--glow-cyan);
+        }
+
+    @@media (max-width: 768px) {
+        .policy-container {
+            padding: 2rem 1rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .glass-card {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+
+<div class="policy-container">
+    <h1 class="page-title">@ViewData["Title"]</h1>
+
+    <div class="glass-card">
+        <h5 class="card-title-cyber">Privacy Policy for FU News Management System</h5>
+        <p class="last-updated">Last updated: June 2025</p>
+
+        <div class="policy-section">
+            <h6>1. Introduction</h6>
+            <p>
+                This Privacy Policy describes how FU News Management System collects, uses, and shares your personal information
+                when you use our platform. We respect your privacy and are committed to protecting your personal data.
+            </p>
+
+            <h6>2. Information We Collect</h6>
+            <p>
+                We collect information that you provide directly to us, such as your name, email address, and account credentials
+                when you register for an account or update your profile.
+            </p>
+
+            <h6>3. How We Use Your Information</h6>
+            <p>
+                We use the information we collect to:
+            </p>
+            <ul>
+                <li>Provide, maintain, and improve our services</li>
+                <li>Create and manage your account</li>
+                <li>Respond to your comments, questions, and requests</li>
+                <li>Send you technical notices, updates, and administrative messages</li>
+                <li>Monitor and analyze trends, usage, and activities in connection with our services</li>
+            </ul>
+
+            <h6>4. Data Security</h6>
+            <p>
+                We implement appropriate security measures to protect your personal information from unauthorized access,
+                alteration, disclosure, or destruction.
+            </p>
+
+            <h6>5. Contact Us</h6>
+            <p>
+                If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@funews.edu.vn">privacy@funews.edu.vn</a>.
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,353 @@
+﻿@model IEnumerable<KhanhTin.BusinessLogic.DTOs.AccountDto>
+@{
+    ViewData["Title"] = "Manage Accounts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Font & Icons *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        --glass-bg: rgba(22, 29, 62, 0.4);
+        --glass-border: rgba(137, 124, 255, 0.2);
+        --text-primary: #e0e0e0;
+        --text-secondary: #9a9ed9;
+        --glow-cyan: #00e5ff;
+        --glow-magenta: #ff00ff;
+        --glow-red: #ff4757;
+        --glow-purple: #9c27b0;
+    }
+
+    body {
+        background: var(--bg-gradient);
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-primary);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .page-title {
+        font-weight: 600;
+        font-size: 2.5rem;
+        color: var(--glow-cyan);
+        text-shadow: 0 0 7px var(--glow-cyan);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .btn-create {
+        background: linear-gradient(45deg, var(--glow-cyan), var(--glow-magenta));
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(150, 50, 255, 0.5);
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+    }
+
+        .btn-create:hover {
+            color: white;
+            box-shadow: 0 6px 25px rgba(0, 229, 255, 0.7);
+            transform: translateY(-2px);
+        }
+
+    .table-container {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        overflow-x: auto;
+    }
+
+    .sci-fi-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: transparent;
+    }
+
+        .sci-fi-table thead th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sci-fi-table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+            .sci-fi-table tbody tr:hover {
+                background-color: rgba(137, 124, 255, 0.1);
+            }
+
+        .sci-fi-table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            vertical-align: middle;
+        }
+
+        .sci-fi-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+    .role-badge {
+        padding: 0.3rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    .role-admin {
+        background-color: var(--glow-red);
+        box-shadow: 0 0 8px var(--glow-red);
+    }
+
+    .role-staff {
+        background-color: var(--glow-cyan);
+        box-shadow: 0 0 8px var(--glow-cyan);
+    }
+
+    .role-lecturer {
+        background-color: var(--glow-purple);
+        box-shadow: 0 0 8px var(--glow-purple);
+    }
+
+    .action-btn {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        margin: 0 0.2rem;
+        font-size: 0.85rem;
+        text-decoration: none;
+    }
+
+        .action-btn .fas {
+            margin-right: 0.4rem;
+        }
+
+    .btn-edit:hover {
+        color: var(--glow-cyan);
+        border-color: var(--glow-cyan);
+        box-shadow: 0 0 8px var(--glow-cyan);
+    }
+
+    .btn-delete:hover {
+        color: var(--glow-red);
+        border-color: var(--glow-red);
+        box-shadow: 0 0 8px var(--glow-red);
+    }
+
+    /* Modal Styling */
+    .modal-backdrop {
+        background-color: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        color: var(--text-primary);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid var(--glass-border);
+        color: var(--glow-red);
+        text-shadow: 0 0 5px var(--glow-red);
+    }
+
+    .modal-title {
+        font-weight: 600;
+    }
+
+    .modal-body strong {
+        color: var(--glow-cyan);
+    }
+
+    .modal-footer {
+        border-top: 1px solid var(--glass-border);
+    }
+
+    .btn-close-white {
+        filter: invert(1) grayscale(100%) brightness(200%);
+    }
+
+    /* Responsive Table */
+    @@media screen and (max-width: 768px) {
+        .sci-fi-table thead {
+            display: none;
+        }
+
+        .sci-fi-table, .sci-fi-table tbody, .sci-fi-table tr, .sci-fi-table td {
+            display: block;
+            width: 100%;
+        }
+
+            .sci-fi-table tr {
+                margin-bottom: 1rem;
+                border: 1px solid var(--glass-border);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .sci-fi-table td {
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+                .sci-fi-table td:last-child {
+                    border-bottom: none;
+                }
+
+                .sci-fi-table td::before {
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 1rem;
+                    width: calc(50% - 2rem);
+                    padding-right: 10px;
+                    white-space: nowrap;
+                    text-align: left;
+                    font-weight: 500;
+                    color: var(--text-secondary);
+                }
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="page-header">
+        <h1 class="page-title"><i class="fas fa-users-cog"></i> Manage Accounts</h1>
+        <a asp-action="Create" class="btn-create">
+            <i class="fas fa-plus-circle"></i> Create New Account
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info" style="background-color: var(--glass-bg); border-color: var(--glass-border); color: var(--text-primary);">
+            No accounts found. Click "Create New Account" to add one.
+        </div>
+    }
+    else
+    {
+        <div class="table-container">
+            <table class="sci-fi-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th style="text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var account in Model)
+                    {
+                        <tr>
+                            <td data-label="Name">@account.AccountName</td>
+                            <td data-label="Email">@account.AccountEmail</td>
+                            <td data-label="Role">
+                                <span class="role-badge @(account.AccountRole == 0 ? "role-admin" : account.AccountRole == 1 ? "role-staff" : "role-lecturer")">
+                                    @account.RoleName
+                                </span>
+                            </td>
+                            <td data-label="Actions" style="text-align: right;">
+                                <a asp-action="Edit" asp-route-id="@account.AccountID" class="action-btn btn-edit">
+                                    <i class="fas fa-pencil-alt"></i> Edit
+                                </a>
+                                <button type="button" class="action-btn btn-delete js-delete-button"
+                                        data-id="@account.AccountID"
+                                        data-name="@account.AccountName"
+                                        data-url="@Url.Action("Delete", "Accounts")">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete account: <strong id="itemNameToDelete"></strong>?</p>
+                <p style="color: var(--glow-red);"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="action-btn" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteItemId" name="id" />
+                    <button type="submit" class="action-btn btn-delete">Confirm Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+            const itemNameToDelete = document.getElementById('itemNameToDelete');
+            const deleteForm = document.getElementById('deleteForm');
+            const deleteItemId = document.getElementById('deleteItemId');
+
+            document.querySelectorAll('.js-delete-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const url = this.getAttribute('data-url'); // ← Thêm dòng này
+
+                    console.log('Delete ID:', id);
+                    console.log('Delete URL:', url); // ← Thêm log để debug
+
+                    itemNameToDelete.textContent = name;
+                    deleteItemId.value = id;
+                    deleteForm.setAttribute('action', url);
+
+                    deleteModal.show();
+                });
+            });
+        });
+    </script>
+}

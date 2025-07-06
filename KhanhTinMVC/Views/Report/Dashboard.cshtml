@@ -1,0 +1,189 @@
+﻿@model KhanhTin.BusinessLogic.DTOs.DashboardDto
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-speedometer2"></i> Dashboard</h1>
+    <div>
+        <a asp-controller="Report" asp-action="Index" class="btn btn-primary">
+            <i class="bi bi-file-earmark-bar-graph"></i> Generate Reports
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card bg-primary text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Total News</h5>
+                        <h2 class="display-4">@Model.TotalNews</h2>
+                    </div>
+                    <i class="bi bi-newspaper fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card bg-success text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Active News</h5>
+                        <h2 class="display-4">@Model.ActiveNews</h2>
+                    </div>
+                    <i class="bi bi-check-circle fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card bg-secondary text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Categories</h5>
+                        <h2 class="display-4">@Model.TotalCategories</h2>
+                    </div>
+                    <i class="bi bi-folder fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card bg-info text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Users</h5>
+                        <h2 class="display-4">@Model.TotalUsers</h2>
+                    </div>
+                    <i class="bi bi-people fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">Recent News Articles</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Created By</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var news in Model.RecentNews)
+                            {
+                                <tr>
+                                    <td>@news.NewsTitle</td>
+                                    <td>@news.CategoryName</td>
+                                    <td>@news.CreatedByName</td>
+                                    <td>@news.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <span class="badge @(news.NewsStatus == 1 ? "bg-success" : "bg-secondary")">
+                                            @(news.NewsStatus == 1 ? "Active" : "Inactive")
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">News Growth</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h6>This Month</h6>
+                        <h3>@Model.NewsThisMonth</h3>
+                    </div>
+                    <div>
+                        <h6>Last Month</h6>
+                        <h3>@Model.NewsLastMonth</h3>
+                    </div>
+                    <div>
+                        <h6>Growth</h6>
+                        <h3 class="@(Model.NewsGrowthPercentage >= 0 ? "text-success" : "text-danger")">
+                            @(Model.NewsGrowthPercentage >= 0 ? "+" : "")@Model.NewsGrowthPercentage.ToString("0.0")%
+                        </h3>
+                    </div>
+                </div>
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar @(Model.NewsGrowthPercentage >= 0 ? "bg-success" : "bg-danger")"
+                         role="progressbar"
+                         style="width: @(Math.Abs(Model.NewsGrowthPercentage) > 100 ? 100 : Math.Abs(Model.NewsGrowthPercentage))%;"
+                         aria-valuenow="@Math.Abs(Model.NewsGrowthPercentage)"
+                         aria-valuemin="0"
+                         aria-valuemax="100">
+                        @Model.NewsGrowthPercentage.ToString("0.0")%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">Top Categories</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    @foreach (var category in Model.TopCategories.Take(5))
+                    {
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">@category.CategoryName</h6>
+                                <small>@category.NewsCount articles</small>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">@category.Percentage.ToString("0.0")%</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">Top Contributors</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    @foreach (var creator in Model.TopCreators.Take(5))
+                    {
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">@creator.AccountName</h6>
+                                <small>@creator.NewsCount articles</small>
+                            </div>
+                            <span class="badge bg-info rounded-pill">@creator.Percentage.ToString("0.0")%</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

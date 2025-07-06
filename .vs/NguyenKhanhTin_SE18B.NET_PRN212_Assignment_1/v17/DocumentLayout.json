@@ -1,0 +1,213 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|d:\\fpt fall 2024 semeter7\\prn222\\nguyenkhanhtin\\nguyenkhanhtin_se18b.net_prn212_assignment_1\\khanhtinmvc\\views\\report\\reportresult.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|solutionrelative:khanhtinmvc\\views\\report\\reportresult.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7681D660-3011-4930-B68F-EE0CF2C7659B}|KhanhTin.BusinessLogic\\KhanhTin.BusinessLogic.csproj|d:\\fpt fall 2024 semeter7\\prn222\\nguyenkhanhtin\\nguyenkhanhtin_se18b.net_prn212_assignment_1\\khanhtin.businesslogic\\dtos\\reportdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7681D660-3011-4930-B68F-EE0CF2C7659B}|KhanhTin.BusinessLogic\\KhanhTin.BusinessLogic.csproj|solutionrelative:khanhtin.businesslogic\\dtos\\reportdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|d:\\fpt fall 2024 semeter7\\prn222\\nguyenkhanhtin\\nguyenkhanhtin_se18b.net_prn212_assignment_1\\khanhtinmvc\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|solutionrelative:khanhtinmvc\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFE50631-D8A4-410E-8B0B-7D12E31B8C77}|KhanhTin.DataAccess\\KhanhTin.DataAccess.csproj|d:\\fpt fall 2024 semeter7\\prn222\\nguyenkhanhtin\\nguyenkhanhtin_se18b.net_prn212_assignment_1\\khanhtin.dataaccess\\repositories\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFE50631-D8A4-410E-8B0B-7D12E31B8C77}|KhanhTin.DataAccess\\KhanhTin.DataAccess.csproj|solutionrelative:khanhtin.dataaccess\\repositories\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|d:\\fpt fall 2024 semeter7\\prn222\\nguyenkhanhtin\\nguyenkhanhtin_se18b.net_prn212_assignment_1\\khanhtinmvc\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|solutionrelative:khanhtinmvc\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|d:\\fpt fall 2024 semeter7\\prn222\\nguyenkhanhtin\\nguyenkhanhtin_se18b.net_prn212_assignment_1\\khanhtinmvc\\controllers\\tagcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|solutionrelative:khanhtinmvc\\controllers\\tagcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|d:\\fpt fall 2024 semeter7\\prn222\\nguyenkhanhtin\\nguyenkhanhtin_se18b.net_prn212_assignment_1\\khanhtinmvc\\views\\tag\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{99D0F400-AD54-4C26-B9E5-F53C3401C87C}|KhanhTinMVC\\KhanhTinMVC.csproj|solutionrelative:khanhtinmvc\\views\\tag\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 138,
+          "SelectedChildIndex": 13,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ReportDto.cs",
+              "DocumentMoniker": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTin.BusinessLogic\\DTOs\\ReportDto.cs",
+              "RelativeDocumentMoniker": "KhanhTin.BusinessLogic\\DTOs\\ReportDto.cs",
+              "ToolTip": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTin.BusinessLogic\\DTOs\\ReportDto.cs",
+              "RelativeToolTip": "KhanhTin.BusinessLogic\\DTOs\\ReportDto.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAIA1wBoAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-06T13:04:22.857Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReportController.cs",
+              "DocumentMoniker": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Controllers\\ReportController.cs",
+              "RelativeDocumentMoniker": "KhanhTinMVC\\Controllers\\ReportController.cs",
+              "ToolTip": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Controllers\\ReportController.cs",
+              "RelativeToolTip": "KhanhTinMVC\\Controllers\\ReportController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADQAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-06T13:05:01.397Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReportResult.cshtml",
+              "DocumentMoniker": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Views\\Report\\ReportResult.cshtml",
+              "RelativeDocumentMoniker": "KhanhTinMVC\\Views\\Report\\ReportResult.cshtml",
+              "ToolTip": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Views\\Report\\ReportResult.cshtml",
+              "RelativeToolTip": "KhanhTinMVC\\Views\\Report\\ReportResult.cshtml",
+              "ViewState": "AgIAADQBAAAAAAAAAAAIwEQBAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-06T13:01:03.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AccountRepository.cs",
+              "DocumentMoniker": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTin.DataAccess\\Repositories\\AccountRepository.cs",
+              "RelativeDocumentMoniker": "KhanhTin.DataAccess\\Repositories\\AccountRepository.cs",
+              "ToolTip": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTin.DataAccess\\Repositories\\AccountRepository.cs",
+              "RelativeToolTip": "KhanhTin.DataAccess\\Repositories\\AccountRepository.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAAwC4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-06T03:38:18.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TagController.cs",
+              "DocumentMoniker": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Controllers\\TagController.cs",
+              "RelativeDocumentMoniker": "KhanhTinMVC\\Controllers\\TagController.cs",
+              "ToolTip": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Controllers\\TagController.cs",
+              "RelativeToolTip": "KhanhTinMVC\\Controllers\\TagController.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAmwFcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-06T04:39:34.603Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Views\\Tag\\Index.cshtml",
+              "RelativeDocumentMoniker": "KhanhTinMVC\\Views\\Tag\\Index.cshtml",
+              "ToolTip": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Views\\Tag\\Index.cshtml",
+              "RelativeToolTip": "KhanhTinMVC\\Views\\Tag\\Index.cshtml",
+              "ViewState": "AgIAAJUBAAAAAAAAAAAAALcBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-06T03:23:50.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "KhanhTinMVC\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\FPT Fall 2024 Semeter7\\PRN222\\NguyenKhanhTin\\NguyenKhanhTin_SE18B.NET_PRN212_Assignment_1\\KhanhTinMVC\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "KhanhTinMVC\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAI0AAAAAAAAAAADwv5gAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-06T03:23:26.648Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 138,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1730,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

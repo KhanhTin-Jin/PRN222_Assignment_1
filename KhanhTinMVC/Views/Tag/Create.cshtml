@@ -1,0 +1,218 @@
+﻿@model KhanhTin.BusinessLogic.DTOs.TagCreateDto
+@{
+    ViewData["Title"] = "Create Tag";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Font & Icons *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(22, 29, 62, 0.45);
+        --glass-border: rgba(137, 124, 255, 0.25);
+        --input-bg: rgba(22, 29, 62, 0.6);
+        --text-primary: #e0e0e0;
+        --text-secondary: #9a9ed9;
+        --glow-cyan: #00b7eb;
+        --glow-magenta: #ff00ff;
+    }
+
+    body {
+        background: var(--bg-gradient);
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-primary);
+    }
+
+    .sci-fi-container {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: calc(100vh - 56px); /* Adjust based on navbar height */
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 700px;
+    }
+
+    .page-title {
+        font-weight: 600;
+        font-size: 2.2rem;
+        color: var(--glow-cyan);
+        text-shadow: 0 0 7px var(--glow-cyan);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .btn-back {
+        background: transparent;
+        color: var(--text-secondary);
+        border: 1px solid var(--glass-border);
+        font-weight: 500;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+    }
+
+        .btn-back:hover {
+            color: var(--glow-cyan);
+            border-color: var(--glow-cyan);
+            box-shadow: 0 0 8px var(--glow-cyan);
+        }
+
+    .form-wrapper {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        padding: 2.5rem 3rem;
+        width: 100%;
+        max-width: 700px;
+    }
+
+    .form-label-cyber {
+        display: block;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .form-control-cyber {
+        width: 100%;
+        height: 50px;
+        border-radius: 8px;
+        border: 1px solid var(--glass-border);
+        background: var(--input-bg);
+        color: var(--text-primary);
+        padding: 0 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    textarea.form-control-cyber {
+        height: auto;
+        padding: 1rem;
+    }
+
+        .form-control-cyber:focus,
+        textarea.form-control-cyber:focus {
+            border-color: var(--glow-cyan);
+            box-shadow: 0 0 12px rgba(0, 183, 235, 0.6);
+            background: rgba(22, 29, 62, 0.8);
+            outline: none;
+        }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2.5rem;
+    }
+
+    .btn-cyber {
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: none;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .btn-primary-cyber {
+        background: linear-gradient(45deg, var(--glow-cyan), var(--glow-magenta));
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(150, 50, 255, 0.5);
+    }
+
+        .btn-primary-cyber:hover {
+            color: #fff;
+            box-shadow: 0 6px 25px rgba(0, 183, 235, 0.7);
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary-cyber {
+        background: transparent;
+        color: var(--text-secondary);
+        border: 1px solid var(--glass-border);
+    }
+
+        .btn-secondary-cyber:hover {
+            background: rgba(137, 124, 255, 0.1);
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+    .text-danger {
+        font-size: 0.85rem;
+        color: #ff6b6b;
+        margin-top: 0.5rem;
+    }
+
+    @@media (max-width: 768px) {
+        .sci-fi-container {
+            padding: 2rem 1rem;
+        }
+
+        .form-wrapper {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+
+<div class="sci-fi-container">
+    <div class="page-header">
+        <h1 class="page-title"><i class="fas fa-tags"></i> Create Tag</h1>
+        <a asp-action="Index" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+
+    <div class="form-wrapper">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+            <div class="mb-4">
+                <label asp-for="TagName" class="form-label-cyber">Tag Name</label>
+                <input asp-for="TagName" class="form-control-cyber" />
+                <span asp-validation-for="TagName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Note" class="form-label-cyber">Note</label>
+                <textarea asp-for="Note" class="form-control-cyber" rows="3"></textarea>
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="Index" class="btn-cyber btn-secondary-cyber">Cancel</a>
+                <button type="submit" class="btn-cyber btn-primary-cyber">Create Tag</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

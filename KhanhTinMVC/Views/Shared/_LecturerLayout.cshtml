@@ -1,0 +1,146 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model IEnumerable<KhanhTin.BusinessLogic.DTOs.NewsArticleDto>
+
+@{
+    Layout = "~/Views/Shared/_LecturerLayout.cshtml";
+
+    // Determine user role by checking the claim value.
+    var userRoleValue = User.FindFirstValue(ClaimTypes.Role);
+    var isStaff = userRoleValue == "1";
+
+    var viewName = isStaff ? "Staff View" : "Lecturer View";
+    var pageTitle = isStaff ? "All News Articles" : "Active News Articles";
+    ViewData["Title"] = pageTitle;
+
+    // Filter news based on the user's role.
+    var newsToDisplay = isStaff
+        ? Model?.ToList()
+        : Model?.Where(n => n.NewsStatus == 1).ToList();
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-newspaper me-2"></i>@pageTitle
+        </h1>
+        <div class="text-muted">
+             <i class="bi bi-person-badge"></i> @viewName
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+            <form asp-controller="News" asp-action="Search" method="get" class="row g-3 align-items-center">
+                <div class="col-md-5">
+                    <input type="text" name="searchTerm" class="form-control" placeholder="Search by title or headline...">
+                </div>
+                <div class="col-md-3">
+                    <select name="categoryId" class="form-select">
+                        <option value="">All Categories</option>
+                        @if (ViewBag.Categories != null)
+                        {
+                            foreach (var category in ViewBag.Categories as List<SelectListItem>)
+                            {
+                                <option value="@category.Value">@category.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                @if (isStaff)
+                {
+                    <div class="col-md-2">
+                        <select name="status" class="form-select">
+                            <option value="">All Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
+                    </div>
+                }
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    @if (newsToDisplay == null || !newsToDisplay.Any())
+    {
+        <div class="card shadow">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">No news articles available</h5>
+                <p class="text-muted">There are currently no news articles to display for your role.</p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in newsToDisplay)
+            {
+                <div class="col-lg-6 col-xl-4 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <h6 class="card-title mb-0 text-truncate" title="@item.NewsTitle">
+                                <i class="fas fa-tag me-1"></i>@item.CategoryName
+                            </h6>
+                             @if (isStaff)
+                             {
+                                 <span class="badge @(item.NewsStatus == 1 ? "bg-success" : "bg-danger")">
+                                     @(item.NewsStatus == 1 ? "Active" : "Inactive")
+                                 </span>
+                             }
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary">@item.NewsTitle</h5>
+                            <p class="card-text text-muted small mb-2">@item.Headline</p>
+
+                            @if (!string.IsNullOrEmpty(item.NewsContent))
+                            {
+                                <p class="card-text flex-grow-1">
+                                    @(item.NewsContent.Length > 150 ? item.NewsContent.Substring(0, 150) + "..." : item.NewsContent)
+                                </p>
+                            }
+
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        @item.CreatedDate.ToString("dd/MM/yyyy")
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="fas fa-user me-1"></i>
+                                        @item.CreatedByName
+                                    </small>
+                                </div>
+                                <a asp-controller="News" asp-action="Details" asp-route-id="@item.NewsArticleID"
+                                   class="btn btn-primary btn-sm w-100">
+                                    <i class="fas fa-eye me-1"></i>Read More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Add hover effects
+            $('.card').hover(
+                function() { $(this).addClass('shadow-lg'); },
+                function() { $(this).removeClass('shadow-lg'); }
+            );
+        });
+    </script>
+}

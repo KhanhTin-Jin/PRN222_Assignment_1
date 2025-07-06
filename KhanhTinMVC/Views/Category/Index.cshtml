@@ -1,0 +1,371 @@
+﻿@model IEnumerable<KhanhTin.BusinessLogic.DTOs.CategoryDto>
+@{
+    ViewData["Title"] = "Manage Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Font & Icons *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        --glass-bg: rgba(22, 29, 62, 0.5);
+        --glass-border: rgba(137, 124, 255, 0.2);
+        --text-primary: #e0e0e0;
+        --text-secondary: #9a9ed9;
+        --glow-cyan: #00e5ff;
+        --glow-magenta: #ff00ff;
+        --glow-green: #00ff99;
+        --glow-red: #ff4757;
+        --glow-gray: #999;
+    }
+
+    /* UPDATED: Apply background and base styles to the body for a full-page effect */
+    body {
+        background: var(--bg-gradient);
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-primary);
+    }
+
+    .sci-fi-container {
+        padding: 2rem;
+        min-height: calc(100vh - 56px); /* Adjust based on your navbar height if necessary */
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .page-title {
+        font-weight: 600;
+        font-size: 2.5rem;
+        color: var(--glow-cyan);
+        text-shadow: 0 0 7px var(--glow-cyan);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .btn-create {
+        background: linear-gradient(45deg, var(--glow-cyan), var(--glow-magenta));
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(150, 50, 255, 0.5);
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+    }
+
+        .btn-create:hover {
+            color: white;
+            box-shadow: 0 6px 25px rgba(0, 229, 255, 0.7);
+            transform: translateY(-2px);
+        }
+
+    .table-container {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        overflow-x: auto;
+    }
+
+    .sci-fi-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .sci-fi-table thead th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sci-fi-table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+            .sci-fi-table tbody tr:hover {
+                background-color: rgba(137, 124, 255, 0.1);
+            }
+
+        .sci-fi-table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            vertical-align: middle;
+            font-size: 0.95rem;
+        }
+
+        .sci-fi-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+    .description-cell {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .status-badge {
+        padding: 0.3rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #000;
+    }
+
+    .status-active {
+        background-color: var(--glow-green);
+        box-shadow: 0 0 8px var(--glow-green);
+    }
+
+    .status-inactive {
+        background-color: var(--glow-gray);
+        color: #fff;
+    }
+
+    .action-btn-group {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
+
+    .action-btn {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+        .action-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+    .btn-edit:hover {
+        color: var(--glow-magenta);
+        border-color: var(--glow-magenta);
+        box-shadow: 0 0 8px var(--glow-magenta);
+    }
+
+    .btn-delete:hover:not(.disabled) {
+        color: var(--glow-red);
+        border-color: var(--glow-red);
+        box-shadow: 0 0 8px var(--glow-red);
+    }
+
+    @@media screen and (max-width: 992px) {
+        .sci-fi-table thead {
+            display: none;
+        }
+
+        .sci-fi-table, .sci-fi-table tbody, .sci-fi-table tr, .sci-fi-table td {
+            display: block;
+            width: 100%;
+        }
+
+            .sci-fi-table tr {
+                margin-bottom: 1rem;
+                border: 1px solid var(--glass-border);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .sci-fi-table td {
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+                .sci-fi-table td:last-child {
+                    border-bottom: none;
+                }
+
+                .sci-fi-table td::before {
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 1rem;
+                    width: calc(50% - 2rem);
+                    white-space: nowrap;
+                    text-align: left;
+                    font-weight: 500;
+                    color: var(--text-secondary);
+                }
+
+        .description-cell {
+            max-width: none;
+            white-space: normal;
+        }
+    }
+</style>
+
+<div class="sci-fi-container">
+    <div class="page-header">
+        <h1 class="page-title"><i class="fas fa-sitemap"></i> Categories</h1>
+        <a asp-action="Create" class="btn-create">
+            <i class="fas fa-plus-circle"></i> Create New Category
+        </a>
+    </div>
+
+    <!-- Section for displaying success or error messages -->
+    @* @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="background-color: rgba(0, 255, 153, 0.2); border-color: var(--glow-green); color: var(--text-primary);">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    } *@
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="background-color: rgba(255, 71, 87, 0.2); border-color: var(--glow-red); color: var(--text-primary);">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert" style="background-color: var(--glass-bg); border-color: var(--glass-border); color: var(--text-primary);">
+            No categories found. Click "Create New Category" to add one.
+        </div>
+    }
+    else
+    {
+        <div class="table-container">
+            <table class="sci-fi-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Parent</th>
+                        <th>Status</th>
+                        <th>News Count</th>
+                        <th style="text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td data-label="Name">@item.CategoryName</td>
+                            <td data-label="Description" class="description-cell" title="@item.CategoryDescription">@(string.IsNullOrEmpty(item.CategoryDescription) ? "N/A" : item.CategoryDescription)</td>
+                            <td data-label="Parent">@(string.IsNullOrEmpty(item.ParentCategoryName) ? "None" : item.ParentCategoryName)</td>
+                            <td data-label="Status">
+                                <span class="status-badge @(item.IsActive ? "status-active" : "status-inactive")">
+                                    @(item.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td data-label="News Count">@item.NewsCount</td>
+                            <td data-label="Actions">
+                                <div class="action-btn-group">
+                                    <a asp-action="Details" asp-route-id="@item.CategoryID" class="action-btn btn-view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.CategoryID" class="action-btn btn-edit" title="Edit">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <button type="button" class="action-btn btn-delete @(item.NewsCount > 0 ? "disabled" : "js-delete-button")"
+                                            data-id="@item.CategoryID"
+                                            data-name="@item.CategoryName"
+                                            data-url="@Url.Action("Delete", "Category")"
+                                            title="@(item.NewsCount > 0 ? "Cannot delete category with news" : "Delete")">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); color: var(--text-primary);">
+            <div class="modal-header" style="border-bottom-color: var(--glass-border);">
+                <h5 class="modal-title" id="deleteModalLabel" style="color: var(--glow-red); text-shadow: 0 0 5px var(--glow-red);"><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: white;"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this category: <strong id="itemNameToDelete" style="color: var(--glow-cyan);"></strong>?</p>
+                <p style="color: var(--text-secondary);"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer" style="border-top-color: var(--glass-border);">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteItemId" name="id" />
+                    <button type="submit" class="btn btn-danger" style="background-color: var(--glow-red); border: none; box-shadow: 0 0 10px var(--glow-red);">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.querySelector('.table-container');
+            const deleteModalElement = document.getElementById('deleteConfirmationModal');
+
+            if (container && deleteModalElement) {
+                const deleteModal = new bootstrap.Modal(deleteModalElement);
+                const itemNameToDelete = document.getElementById('itemNameToDelete');
+                const deleteForm = document.getElementById('deleteForm');
+                const deleteItemId = document.getElementById('deleteItemId');
+
+                container.addEventListener('click', function (event) {
+                    const button = event.target.closest('.js-delete-button');
+
+                    if (button) {
+                        const id = button.getAttribute('data-id');
+                        const name = button.getAttribute('data-name');
+                        const url = button.getAttribute('data-url');
+
+                        if(itemNameToDelete) itemNameToDelete.textContent = name;
+                        if(deleteItemId) deleteItemId.value = id;
+                        if(deleteForm) deleteForm.setAttribute('action', url);
+
+                        deleteModal.show();
+                    }
+                });
+            }
+        });
+    </script>
+}

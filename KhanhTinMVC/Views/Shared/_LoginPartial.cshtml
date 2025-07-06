@@ -1,0 +1,116 @@
+﻿@using System.Security.Claims
+
+@*
+    Để các style dưới đây hoạt động, hãy đảm bảo các biến màu trong :root
+    đã được định nghĩa ở file _Layout.cshtml hoặc file CSS chính của bạn.
+*@
+<style>
+    .sci-fi-navbar .nav-item .nav-link.btn-nav,
+    .sci-fi-navbar .nav-item .dropdown-toggle {
+        border: 1px solid var(--glass-border);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .sci-fi-navbar .nav-item .nav-link.btn-nav:hover,
+        .sci-fi-navbar .nav-item .dropdown-toggle:hover {
+            border-color: var(--glow-cyan);
+            color: var(--glow-cyan);
+            box-shadow: 0 0 8px var(--glow-cyan);
+            transform: translateY(-2px);
+        }
+
+    /* Dropdown Menu Styles */
+    .dropdown-menu-cyber {
+        background: rgba(22, 29, 62, 0.8); /* Darker glass bg */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        padding: 0.5rem 0;
+        margin-top: 0.5rem !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+        .dropdown-menu-cyber .dropdown-item {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 0.75rem 1.25rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+            .dropdown-menu-cyber .dropdown-item i {
+                margin-right: 0.75rem;
+                width: 1.2em;
+                color: var(--glow-cyan);
+            }
+
+            .dropdown-menu-cyber .dropdown-item:hover,
+            .dropdown-menu-cyber .dropdown-item:focus {
+                background-color: rgba(0, 183, 235, 0.1);
+                color: var(--glow-cyan);
+            }
+
+        .dropdown-menu-cyber .dropdown-item-logout:hover,
+        .dropdown-menu-cyber .dropdown-item-logout:focus {
+            background-color: rgba(255, 71, 87, 0.1);
+            color: var(--glow-red);
+        }
+
+        .dropdown-menu-cyber .dropdown-item-logout i {
+            color: var(--glow-red);
+        }
+
+        .dropdown-menu-cyber .dropdown-divider {
+            border-top-color: var(--glass-border);
+        }
+
+    /* Ensure the button within the form looks like a dropdown-item */
+    .form-logout-button {
+        background: none;
+        border: none;
+        padding: 0;
+        text-align: left;
+        width: 100%;
+    }
+</style>
+
+<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-1"></i> @User.Identity.Name
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-cyber" aria-labelledby="navbarDropdown">
+                @if (User.IsInRole("1")) // Chỉ Staff được thấy My Profile
+                {
+                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile"><i class="bi bi-person-lines-fill"></i> My Profile</a></li>
+                }
+
+                @if (User.IsInRole("0")) // Admin
+                {
+                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Dashboard"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a></li>
+                }
+
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="form-logout-button">
+                            <span class="dropdown-item dropdown-item-logout"><i class="bi bi-box-arrow-right"></i> Logout</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link btn-nav" asp-controller="Account" asp-action="Login">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+            </a>
+        </li>
+    }
+</ul>
